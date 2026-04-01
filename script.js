@@ -198,13 +198,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Initialize AOS with performance optimizations
-    AOS.init({
-        duration: 800,
-        once: true,
-        offset: 50,
-        easing: 'ease-out-cubic',
-        disable: window.innerWidth < 768 ? true : false, // Disable on mobile for better performance
-    });
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50,
+            easing: 'ease-out-cubic',
+            disable: window.innerWidth < 768 ? true : false,
+        });
+    }
 
     // Scroll Progress Indicator
     const scrollProgress = document.getElementById('scroll-progress');
@@ -275,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Respect reduced motion: disable AOS if user prefers reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (prefersReducedMotion.matches) {
-        try { AOS.disable(); } catch (e) {}
+        try { if (typeof AOS !== 'undefined') AOS.disable(); } catch (e) {}
     }
 
     // Performance monitoring (development only)
@@ -285,6 +287,51 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('✅ GPU acceleration active');
         console.log('✅ Intersection Observer active');
         console.log('✅ Scroll progress indicator active');
+    }
+
+    // Typewriter Effect for hero subtitle
+    const typewriterEl = document.getElementById('typewriter-target');
+    if (typewriterEl) {
+        const phrases = [
+            'Innovative Web Solutions',
+            'Full-Stack Applications',
+            'Elegant Digital Experiences',
+            'AI-Powered Tools',
+            'Scalable Web Architectures',
+        ];
+        let phraseIdx = 0;
+        let charIdx = phrases[0].length; // start full
+        let isDeleting = false;
+        const typeSpeed = 70;
+        const deleteSpeed = 40;
+        const pauseFull = 2200;
+        const pauseEmpty = 400;
+
+        function typeStep() {
+            const current = phrases[phraseIdx];
+            if (isDeleting) {
+                charIdx--;
+                typewriterEl.textContent = current.slice(0, charIdx);
+                if (charIdx === 0) {
+                    isDeleting = false;
+                    phraseIdx = (phraseIdx + 1) % phrases.length;
+                    setTimeout(typeStep, pauseEmpty);
+                    return;
+                }
+                setTimeout(typeStep, deleteSpeed);
+            } else {
+                charIdx++;
+                typewriterEl.textContent = current.slice(0, charIdx);
+                if (charIdx === current.length) {
+                    isDeleting = true;
+                    setTimeout(typeStep, pauseFull);
+                    return;
+                }
+                setTimeout(typeStep, typeSpeed);
+            }
+        }
+        // Start cycle after initial pause
+        setTimeout(() => { isDeleting = true; typeStep(); }, pauseFull);
     }
 
     // Case Study Toggle Functionality
@@ -304,8 +351,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    // Initialize Particles.js
-    const initParticles = () => particlesJS('particles-js-header', {
+    // Initialize Particles.js (guarded)
+    const initParticles = () => {
+        if (typeof particlesJS === 'undefined') return;
+        particlesJS('particles-js-header', {
         particles: {
             number: { value: 60, density: { enable: true, value_area: 800 } },
             color: { value: "#ffffff" },
@@ -322,7 +371,10 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         retina_detect: true
     });
-    const initParticlesContact = () => particlesJS('particles-js-contact', {
+    };
+    const initParticlesContact = () => {
+        if (typeof particlesJS === 'undefined') return;
+        particlesJS('particles-js-contact', {
         particles: {
             number: { value: 50, density: { enable: true, value_area: 800 } },
             color: { value: "#ffffff" },
@@ -338,8 +390,77 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         retina_detect: true
     });
+    };
     if (!prefersReducedMotion.matches) {
         initParticles();
         initParticlesContact();
+    }
+
+    // ── STICKY NAVBAR ──────────────────────────────────────────
+    const stickyNav = document.getElementById('sticky-nav');
+    const heroHeader = document.querySelector('header.hero-gradient');
+    if (stickyNav && heroHeader) {
+        const stickyLinks = stickyNav.querySelectorAll('.sticky-link');
+        let stickyVisible = false;
+
+        const updateStickyNav = () => {
+            const headerBottom = heroHeader.getBoundingClientRect().bottom;
+            if (headerBottom < 0 && !stickyVisible) {
+                stickyNav.classList.add('visible');
+                stickyVisible = true;
+            } else if (headerBottom >= 0 && stickyVisible) {
+                stickyNav.classList.remove('visible');
+                stickyVisible = false;
+            }
+        };
+
+        window.addEventListener('scroll', () => requestAnimationFrame(updateStickyNav), { passive: true });
+        updateStickyNav();
+
+        // Highlight active sticky link
+        const mainSections = document.querySelectorAll('main section[id]');
+        const stickySectionObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    stickyLinks.forEach(link => {
+                        link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                    });
+                }
+            });
+        }, { threshold: 0.35 });
+        mainSections.forEach(sec => stickySectionObs.observe(sec));
+
+        // Smooth scroll for sticky links
+        stickyLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    }
+
+    // ── MOBILE MENU TOGGLE ─────────────────────────────────────
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            mobileMenuBtn.classList.toggle('open', isOpen);
+            mobileMenuBtn.setAttribute('aria-expanded', isOpen);
+        });
+
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                mobileMenu.classList.remove('open');
+                mobileMenuBtn.classList.remove('open');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
     }
 });

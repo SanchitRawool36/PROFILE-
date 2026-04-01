@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sanchit Rawool - Web Development & Digital Solutions</title>
     <meta name="description" content="Sanchit Rawool's portfolio showcasing custom web development and digital solutions. Bringing your digital visions to life with modern technologies like React, Node.js, and MongoDB.">
     <meta name="keywords" content="Sanchit Rawool, web developer, web solutions, React, Node.js, MongoDB, full-stack, portfolio, custom web applications, Kudal, Maharashtra, India, Python, Java, JavaScript, SQL, HTML, CSS, JSX, Express.js, MySQL, Git, GitHub, Netlify, Render, Cybersecurity, IT Support">
@@ -11,7 +10,8 @@
     <meta name="author" content="Sanchit Rawool">
     <meta name="robots" content="index, follow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#3a0ca3">
+    <meta name="theme-color" content="#0B1F4B">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='18' width='100' height='100' fill='%230B1F4B'/><text x='50' y='68' text-anchor='middle' font-size='56' font-family='serif' font-weight='bold' fill='%23C9A84C'>S</text></svg>">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -32,7 +32,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Raleway:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="style.css">
@@ -119,14 +119,15 @@
         <div id="scroll-progress" class="scroll-progress"></div>
         <div id="particles-js-header" class="absolute inset-0"></div>
         <div class="container text-center relative z-10">
-            <h1 class="text-6xl md:text-7xl font-bold mb-6 leading-tight luxury-font" data-aos="fade-down">
-                Hi, I'm <span style="color: var(--gold);">Sanchit Rawool</span>
+            <span class="hero-emblem" data-aos="fade-down" data-aos-delay="50">― Est. 2024 · Full-Stack Developer ―</span>
+            <h1 class="text-6xl md:text-7xl font-bold mb-6 leading-tight royal-font" data-aos="fade-down">
+                <span style="color: var(--gold);">Sanchit Rawool</span>
             </h1>
-            <p class="text-lg md:text-xl mb-4 opacity-80 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="150">
-                Full-Stack Developer | Graphic/UI Designer | AI Tools Developer
+            <p class="text-lg md:text-xl mb-4 max-w-2xl mx-auto" style="opacity:0.65; letter-spacing:0.18em; font-family:'Cinzel',serif; font-size:0.72rem; text-transform:uppercase;" data-aos="fade-up" data-aos-delay="150">
+                Full-Stack Developer &nbsp;·&nbsp; UI/UX Designer &nbsp;·&nbsp; AI Tools Developer
             </p>
-            <p class="text-2xl md:text-3xl mb-10 opacity-90 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
-                Crafting <span class="luxury-font italic">Digital Excellence</span> Through Innovative Web Solutions
+            <p class="text-xl md:text-2xl mb-10 opacity-90 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                Crafting <span class="luxury-font" style="font-style:italic; color:var(--gold-light);">Digital Excellence</span> Through <span id="typewriter-target">Innovative Web Solutions</span><span class="typewriter-cursor"></span>
             </p>
             <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-12" data-aos="fade-up" data-aos-delay="400">
                 <a href="#projects" class="btn-primary btn-shine hover-lift gpu-accelerated">View My Work</a>
@@ -153,23 +154,67 @@
         </div>
     </header>
 
+    <!-- Sticky Navbar (appears on scroll) -->
+    <nav id="sticky-nav" class="sticky-nav" aria-label="Main navigation">
+        <div class="sticky-nav-inner">
+            <a href="#" class="sticky-nav-logo royal-font">SR</a>
+            <ul class="sticky-nav-links">
+                <li><a href="#about" class="sticky-link">About</a></li>
+                <li><a href="#stats" class="sticky-link">Stats</a></li>
+                <li><a href="#skills" class="sticky-link">Skills</a></li>
+                <li><a href="#projects" class="sticky-link">Projects</a></li>
+                <li><a href="#services" class="sticky-link">Services</a></li>
+                <li><a href="#certifications" class="sticky-link">Certs</a></li>
+                <li><a href="#contact" class="sticky-link">Contact</a></li>
+            </ul>
+            <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <!-- Mobile dropdown -->
+        <ul id="mobile-menu" class="mobile-menu">
+            <li><a href="#about" class="mobile-link">About</a></li>
+            <li><a href="#stats" class="mobile-link">Stats</a></li>
+            <li><a href="#skills" class="mobile-link">Skills</a></li>
+            <li><a href="#projects" class="mobile-link">Projects</a></li>
+            <li><a href="#services" class="mobile-link">Services</a></li>
+            <li><a href="#certifications" class="mobile-link">Certifications</a></li>
+            <li><a href="#contact" class="mobile-link">Contact</a></li>
+        </ul>
+    </nav>
+
     <main id="main">
-        <section id="about" class="py-24 bg-white">
+        <section id="about" class="py-24">
             <div class="container text-center">
                 <h2 class="section-heading" data-aos="fade-up">About Me</h2>
-                <div class="max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="200">
-                    <p class="text-xl text-gray-700 leading-relaxed">
-                        I’m a Computer Science undergraduate at SRM College, Kudal (Mumbai University, Class of 2026) focused on building reliable, scalable, and user‑centric web applications.
-                    </p>
-                    <p class="text-xl text-gray-700 mt-6 leading-relaxed">
-                        I specialize in modern full‑stack development with React, Node.js, Express, and MongoDB—delivering clean code, thoughtful UX, and end‑to‑end solutions. I’m also Google‑certified in Cybersecurity and IT Support.
-                    </p>
+                <div class="grid md:grid-cols-2 gap-12 items-center mt-8 text-left">
+                    <div class="flex justify-center" data-aos="fade-right">
+                        <div class="royal-avatar-wrap royal-avatar-lg">
+                            <img src="IMG_5554.jpg" alt="Sanchit Rawool" loading="lazy">
+                        </div>
+                    </div>
+                    <div data-aos="fade-left" data-aos-delay="150">
+                        <p class="text-lg leading-relaxed" style="color:var(--text-body);">
+                            A Computer Science undergraduate at SRM College, Kudal (Mumbai University, Class of 2026),
+                            dedicated to building reliable, scalable, and user‑centric applications of the highest calibre.
+                        </p>
+                        <p class="text-lg mt-6 leading-relaxed" style="color:var(--text-muted);">
+                            Specialising in full‑stack development with React, Node.js, Express, and MongoDB, as well as
+                            cross‑platform mobile development with Dart and Flutter — delivering clean code, thoughtful UX,
+                            and end‑to‑end solutions across web and mobile. Google‑certified in Cybersecurity &amp; IT Support.
+                        </p>
+                        <div style="margin-top:2.5rem; display:flex; gap:0.6rem; align-items:center; color:var(--gold); font-size:0.6rem; letter-spacing:0.5em; font-family:'Cinzel',serif; text-transform:uppercase; opacity:0.7;">
+                            <span>◆</span><span>Excellence · Craft · Innovation</span><span>◆</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
+        <div class="royal-divider-line"></div>
+        <div class="royal-divider" style="padding:1.2rem 0; background:var(--ivory);"></div>
         <!-- Statistics Section -->
-        <section id="stats" class="py-24 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+        <section id="stats" class="py-24 text-white">
             <div class="container text-center">
                 <h2 class="section-heading text-white" data-aos="fade-up">My Achievements</h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16">
@@ -193,7 +238,9 @@
             </div>
         </section>
 
-        <section id="skills" class="py-24 bg-gray-50">
+        <div class="royal-divider-line"></div>
+        <div class="royal-divider" style="padding:1.2rem 0; background:var(--cream);"></div>
+        <section id="skills" class="py-24">
             <div class="container">
                 <h2 class="section-heading text-center" data-aos="fade-up">Technical Skills & Tools</h2>
 
@@ -231,14 +278,16 @@
             </div>
         </section>
 
-        <section id="projects" class="py-24 bg-white">
+        <div class="royal-divider-line"></div>
+        <div class="royal-divider" style="padding:1.2rem 0; background:var(--ivory);"></div>
+        <section id="projects" class="py-24">
             <div class="container">
                 <h2 class="section-heading text-center" data-aos="fade-up">Featured Projects</h2>
                 <div class="space-y-24 mt-16">
                     <!-- Foodie Friend (now first) -->
                     <div class="grid md:grid-cols-2 gap-12 items-center">
                         <div class="project-image-container hover-rotate gpu-accelerated" data-aos="fade-right">
-                             <img src="Foodie .jpg" alt="Foodie Friend App Screenshot" class="rounded-lg shadow-xl lazy" loading="lazy" decoding="async">
+                             <img src="Foodie.jpg" alt="Foodie Friend App Screenshot" class="rounded-lg shadow-xl lazy" loading="lazy" decoding="async">
                         </div>
                         <div data-aos="fade-left">
                             <h3 class="text-3xl font-bold mb-4 luxury-font text-orange-700">Foodie Friend</h3>
@@ -425,7 +474,9 @@
             </div>
         </section>
 
-        <section id="certifications" class="py-24 bg-gray-50">
+        <div class="royal-divider-line"></div>
+        <div class="royal-divider" style="padding:1.2rem 0; background:var(--cream);"></div>
+        <section id="certifications" class="py-24">
             <div class="container text-center">
                 <h2 class="section-heading" data-aos="fade-up">Professional Certifications</h2>
                 <div class="grid md:grid-cols-2 gap-10 mt-16">
@@ -449,8 +500,10 @@
             </div>
         </section>
 
+        <div class="royal-divider-line"></div>
+        <div class="royal-divider" style="padding:1.2rem 0; background:var(--ivory);"></div>
         <!-- Services Offered Section -->
-        <section id="services" class="py-24 bg-white">
+        <section id="services" class="py-24">
             <div class="container">
                 <h2 class="section-heading text-center" data-aos="fade-up">Services I Offer</h2>
                 <div class="grid md:grid-cols-3 gap-8 mt-16">
@@ -531,10 +584,12 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <footer class="bg-gray-900 text-gray-300 py-12">
+    <footer style="background:var(--navy-dark); color:rgba(255,255,255,0.45); padding:3rem 0;">
         <div class="container text-center">
-            <p>&copy; <span id="current-year"></span> Sanchit Rawool. All rights reserved.</p>
-            <p class="mt-2">Built with <i class="fas fa-heart text-red-400"></i> and Code.</p>
+            <p style="font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold); margin-bottom:0.75rem;">Sanchit Rawool</p>
+            <p style="font-size:0.78rem; letter-spacing:0.06em;">&copy; <span id="current-year"></span> All rights reserved.</p>
+            <p style="margin-top:0.5rem; font-size:0.75rem;">Crafted with <i class="fas fa-heart" style="color:var(--burgundy);"></i> &amp; Code.</p>
+            <p style="margin-top:1.5rem; font-size:0.58rem; letter-spacing:0.35em; text-transform:uppercase; color:rgba(201,168,76,0.35); font-family:'Cinzel',serif;">◆ &nbsp; Excellence in Every Line &nbsp; ◆</p>
         </div>
     </footer>
 
